@@ -1,4 +1,34 @@
 import streamlit as st
+import pickle
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+# =========================
+# Load Models and Encoders
+# =========================
+
+@st.cache_resource
+def load_model():
+    with open('xgb_model.pkl', 'rb') as f:
+        model = pickle.load(f)
+    with open('label_encoder.pkl', 'rb') as f:
+        label_encoder = pickle.load(f)
+    return model, label_encoder
+
+@st.cache_resource
+def load_sentence_transformer():
+    # Load the pre-trained Sentence Transformer model
+    model = SentenceTransformer('all-MiniLM-L6-v2')  # Adjust if using a different model
+    return model
+
+# Load the models
+model, label_encoder = load_model()
+sentence_model = load_sentence_transformer()
+
+# =========================
+# Streamlit App Layout
+# =========================
+
 st.title("Medication Review Analyzer")
 
 st.write("Enter your medication review below to analyze its category:")
