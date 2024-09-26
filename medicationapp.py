@@ -1,3 +1,4 @@
+import streamlit as st
 st.title("Medication Review Analyzer")
 
 st.write("Enter your medication review below to analyze its category:")
